@@ -78,83 +78,113 @@ results_test_e <- sapply(data_ls, test_function, target_column = "targets")
 results_test1_e <- replicate(100, test_function(data9, "targets"))
 
 
-data_with_balenceTech <- c("Balanced_RF", "SMOTE_RF","SMOTE_SVM", "SMOTE_Ada")
-data_without_balenceTech <- c("RF", "SVM", "Ada")
-
-
-row.names(results_real_e[c("SMOTE_RF","SMOTE_SVM", "SMOTE_Ada"),]) <- c("eSMOTE_RF","eSMOTE_SVM", "eSMOTE_Ada")
-results_real <- rbind(results_real_b, results_real_e[c("eSMOTE_RF","eSMOTE_SVM", "eSMOTE_Ada"),])
-
-
-
-png("real_data_100_b_without_BT.png", width = 2000, height = 1500, res = 300)
-
-bp <- barplot(rowMeans(results_real_b[data_without_balenceTech,]),main = "Mean F1 Scores of different Models with real world data",xlab = "Model", ylab = "F1 Score", 
-              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
-text(x = bp, y = rowMeans(results_real_b[data_without_balenceTech,]), label = round(rowMeans(results_real_b[data_without_balenceTech,]),3), pos = 3, cex = 0.8)
-
-dev.off()
-
-png("real_data_100_b_with_BT.png", width = 2000, height = 1500, res = 300)
-
-bp <- barplot(rowMeans(results_real_b[data_with_balenceTech,]),main = "Mean F1 Scores of different Models",xlab = "Model", ylab = "F1 Score", 
-              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
-text(x = bp, y = rowMeans(results_real_b), label = round(rowMeans(results_real_b),3), pos = 3, cex = 0.8)
-
-dev.off()
-
-png("real_data_100_b.png", width = 2000, height = 1500, res = 300)
-
-bp <- barplot(rowMeans(results_real_b),main = "Mean F1 Scores of different Models",xlab = "Model", ylab = "F1 Score", 
-        col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
-text(x = bp, y = rowMeans(results_real_b), label = round(rowMeans(results_real_b),3), pos = 3, cex = 0.8)
-
-dev.off()
-
-png("test_data_10_b.png", width = 2000, height = 1500, res = 300)
-
-bp <- barplot(rowMeans(results_test_b),main = "Mean F1 Scores of different Models",xlab = "Model", ylab = "F1 Score", 
-              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
-text(x = bp, y = rowMeans(results_test_b), label = round(rowMeans(results_test_b),2), pos = 3, cex = 0.8)
-
-dev.off()
-
-png("real_data_100_e.png", width = 2000, height = 1500, res = 300)
-
-bp <- barplot(rowMeans(results_real_e),main = "Mean F1 Scores of different Models",xlab = "Model", ylab = "F1 Score", 
-              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
-text(x = bp, y = rowMeans(results_real_e), label = round(rowMeans(results_real_e),3), pos = 3, cex = 0.8)
-
-dev.off()
-
-png("test_data_10_e.png", width = 2000, height = 1500, res = 300)
-
-bp <- barplot(rowMeans(results_test_e),main = "Mean F1 Scores of different Models",xlab = "Model", ylab = "F1 Score", 
-              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
-text(x = bp, y = rowMeans(results_test_e), label = round(rowMeans(results_test_e),2), pos = 3, cex = 0.8)
-
-dev.off()
-
-png("test_data_100_b.png", width = 2000, height = 1500, res = 300)
-
-bp <- barplot(rowMeans(results_test1_b),main = "Mean F1 Scores of different Models",xlab = "Model", ylab = "F1 Score", 
-              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
-text(x = bp, y = rowMeans(results_test1_b), label = round(rowMeans(results_test1_b),2), pos = 3, cex = 0.8)
-
-dev.off()
-
-png("test_data_100_e.png", width = 2000, height = 1500, res = 300)
-
-bp <- barplot(rowMeans(results_test1_e),main = "Mean F1 Scores of different Models",xlab = "Model", ylab = "F1 Score", 
-              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
-text(x = bp, y = rowMeans(results_test1_e), label = round(rowMeans(results_test1_e),2), pos = 3, cex = 0.8)
-
-dev.off()
-
-
 save(results_real_b, file = "results_real_b.RData")
 save(results_test1_b, file = "results_test1_b.RData")
 save(results_test1_e, file = "results_test1_e.RData")
 save(results_test_e, file = "results_test_e.RData")
 save(results_real_e, file = "results_real_e.RData")
 save(results_test_b, file = "results_test_b.RData")
+
+
+
+results_real_e <- as.data.frame(results_real_e)
+results_real_b <- as.data.frame(results_real_b)
+results_test1_b <- as.data.frame(results_test1_b)
+results_test1_e <- as.data.frame(results_test1_e)
+results_test_e <- as.data.frame(results_test_e)
+results_test_b <- as.data.frame(results_test_b)
+
+
+row.names(results_real_e) <- c("RF", "Balanced_RF", "eSMOTE_RF", "SVM", "eSMOTE_SVM", "Ada", "eSMOTE_Ada")
+row.names(results_test1_e) <- c("RF", "Balanced_RF", "eSMOTE_RF", "SVM", "eSMOTE_SVM", "Ada", "eSMOTE_Ada")
+row.names(results_test_e) <- c("RF", "Balanced_RF", "eSMOTE_RF", "SVM", "eSMOTE_SVM", "Ada", "eSMOTE_Ada")
+results_real <- rbind(results_real_b, results_real_e[c("eSMOTE_RF", "eSMOTE_SVM", "eSMOTE_Ada"),])
+results_test1 <- rbind(results_test1_b, results_test1_e[c("eSMOTE_RF", "eSMOTE_SVM", "eSMOTE_Ada"),])
+results_test <- rbind(results_test_b, results_test_e[c("eSMOTE_RF", "eSMOTE_SVM", "eSMOTE_Ada"),])
+
+data_with_balenceTech <- c("Balanced_RF", "SMOTE_RF","eSMOTE_RF","SMOTE_SVM","eSMOTE_SVM", "SMOTE_Ada","eSMOTE_Ada")
+data_without_balenceTech <- c("RF", "SVM", "Ada")
+
+png("real_data_without_BT.png", width = 2000, height = 1500, res = 300)
+
+bp <- barplot(rowMeans(results_real[data_without_balenceTech,]),main = "Mean F1 Scores of different Models with real world data",xlab = "Model", ylab = "F1 Score", 
+              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
+text(x = bp, y = rowMeans(results_real[data_without_balenceTech,]), label = round(rowMeans(results_real[data_without_balenceTech,]),3), pos = 3, cex = 0.8)
+
+dev.off()
+
+png("real_data_with_BT.png", width = 2000, height = 1500, res = 300)
+
+bp <- barplot(rowMeans(results_real[data_with_balenceTech,]),main = "Mean F1 Scores of different Models with real world data",xlab = "Model", ylab = "F1 Score", 
+              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
+text(x = bp, y = rowMeans(results_real[data_with_balenceTech,]), label = round(rowMeans(results_real[data_with_balenceTech,]),3), pos = 3, cex = 0.8)
+
+dev.off()
+
+real_data <- rowMeans(results_real)
+real_data <- real_data[order(real_data)]
+
+png("real_data.png", width = 2500, height = 1500, res = 300)
+
+bp <- barplot(real_data, main = "Mean F1 Scores of different Models with real world data", xlab = "Model", ylab = "F1 Score",
+              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
+text(x = bp, y = real_data, label = round(real_data, 3), pos = 3, cex = 0.8)
+
+dev.off()
+
+
+png("test_data_100_without_BT.png", width = 2000, height = 1500, res = 300)
+
+bp <- barplot(rowMeans(results_test1[data_without_balenceTech,]),main = "Mean F1 Scores of different Models with generated data",xlab = "Model", ylab = "F1 Score", 
+              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
+text(x = bp, y = rowMeans(results_test1[data_without_balenceTech,]), label = round(rowMeans(results_test1[data_without_balenceTech,]),3), pos = 3, cex = 0.8)
+
+dev.off()
+
+png("test_data_100_with_BT.png", width = 2000, height = 1500, res = 300)
+
+bp <- barplot(rowMeans(results_test1[data_with_balenceTech,]),main = "Mean F1 Scores of different Models with generated data",xlab = "Model", ylab = "F1 Score", 
+              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
+text(x = bp, y = rowMeans(results_test1[data_with_balenceTech,]), label = round(rowMeans(results_test1[data_with_balenceTech,]),3), pos = 3, cex = 0.8)
+
+dev.off()
+
+test_data_100 <- rowMeans(results_test1)
+test_data_100 <- test_data_100[order(test_data_100)]
+
+png("test_data_100.png", width = 2500, height = 1500, res = 300)
+
+bp <- barplot(test_data_100, main = "Mean F1 Scores of different Models with generated data", xlab = "Model", ylab = "F1 Score",
+              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
+text(x = bp, y = test_data_100, label = round(test_data_100, 3), pos = 3, cex = 0.8)
+
+dev.off()
+
+
+
+png("test_data_10_without_BT.png", width = 2000, height = 1500, res = 300)
+
+bp <- barplot(rowMeans(results_test[data_without_balenceTech,]),main = "Mean F1 Scores of different Models with different generated data",xlab = "Model", ylab = "F1 Score", 
+              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
+text(x = bp, y = rowMeans(results_test[data_without_balenceTech,]), label = round(rowMeans(results_test[data_without_balenceTech,]),3), pos = 3, cex = 0.8)
+
+dev.off()
+
+png("test_data_10_with_BT.png", width = 2000, height = 1500, res = 300)
+
+bp <- barplot(rowMeans(results_test[data_with_balenceTech,]),main = "Mean F1 Scores of different Models with different generated data",xlab = "Model", ylab = "F1 Score", 
+              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
+text(x = bp, y = rowMeans(results_test[data_with_balenceTech,]), label = round(rowMeans(results_test[data_with_balenceTech,]),3), pos = 3, cex = 0.8)
+
+dev.off()
+
+test_data_10 <- rowMeans(results_test)
+test_data_10 <- test_data_10[order(test_data_10)]
+
+png("test_data_10.png", width = 2500, height = 1500, res = 300)
+
+bp <- barplot(test_data_10, main = "Mean F1 Scores of different Models with different generated data", xlab = "Model", ylab = "F1 Score",
+              col = "gray", border = "black", width = 0.1, space = 0, ylim = c(0,1), cex.names = 0.5)
+text(x = bp, y = test_data_10, label = round(test_data_10, 3), pos = 3, cex = 0.8)
+
+dev.off()
